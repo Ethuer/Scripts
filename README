@@ -1,0 +1,7 @@
+directory of scripts written by me. 
+commandline driven
+see individual -h for parameters
+
+
+CPC2fasta.py	transforms CPCs .tab output to fasta format
+CPC2gtf.py 	creates a gtf file from cpc .tab and fasta file used as a reference by cpc.
