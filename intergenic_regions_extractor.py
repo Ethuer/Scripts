@@ -14,9 +14,6 @@ from Bio.Blast.Applications import NcbiblastxCommandline
 
 # output is for teaching purpouse in CPAT
 
-##def blast(sequence):
-##    blastx_cline = NcbiblastxCommandline(query='%s' %(sequence),db='C_par_orf',evalue=0.001,outfmt=5)
-
 
 # arguments for commandline input and help
 ####################################################
@@ -58,18 +55,14 @@ parser.add_argument('-overhead',
 
 args = parser.parse_args()
 
-##
-##(args.orfs)
-##(args.intergen)
-
 (args.overhead)
 
 #####################################################
 
 def match_string(large,small,ident):
+    """ REGEX via python re. looking for bp upstream downstream"""
     count_string = 0
     collectstring = {}
-    """ REGEX via python re. looking for bp upstream downstream"""
     string = ('\w{1,%i}%s\w{1,%i}') % (args.overhead, small, args.overhead)
     reg  = re.compile(string)
     large = str(large)
@@ -78,6 +71,7 @@ def match_string(large,small,ident):
 
 
 def compare(infile,compare):
+    """ compares two files according to their row[0] field"""
     counter = 0
     collect_seq={}
     for row,seq in infile.items():
@@ -94,9 +88,6 @@ def compare(infile,compare):
     return collect_seq
 
 
-##handle_orf = open('C_parapsilosis_CDC317_current_orf_coding.fasta','r')
-##handle_inter = open('C_parapsilosis_CDC317_current_orf_plus_intergenic.fasta','r')
-
 with open('%s','r')%(args.orfs) as handle_orf, open('%s','r') % (args.intergen) as handle_inter, open('%s','w') % (args.output) as out_raw :
 
     orf = SeqIO.to_dict(SeqIO.parse(handle_orf,'fasta'))
@@ -111,11 +102,3 @@ with open('%s','r')%(args.orfs) as handle_orf, open('%s','r') % (args.intergen) 
             count += len(collection[key])
     print 'average length = %i' %(count/len(collection))
 
-
-##handle_orf.close()
-##handle_inter.close()
-
-
-
-##for key,seq in orf.items():
-##    print seq.seq
