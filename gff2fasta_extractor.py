@@ -2,18 +2,19 @@ import csv
 from Bio import SeqIO
 import re as re
 
-# this script takes a gff and a fasta file to create the fasta sequences of genes / annotated sequences
-# an overhead ( upstream, downstream ) is also retained, the output is directed to a new fasta file
-
-#gff features
-#1.  Feature name (mandatory); this is the primary systematic name, if available
-#2.  Gene name (locus name)
-#3.  Feature type
-#4.  Chromosome
-#5.  Start Coordinate
-#6.  Stop Coordinate
-#7.  Strand 
-
+#########################################################################################################
+# this script takes a gff and a fasta file to create the fasta sequences of genes / annotated sequences #
+# an overhead ( upstream, downstream ) is also retained, the output is directed to a new fasta file     #
+#                                                                                                       #
+#gff features                                                                                           #
+#1.  Feature name (mandatory); this is the primary systematic name, if available                        #
+#2.  Gene name (locus name)                                                                             #
+#3.  Feature type                                                                                       #
+#4.  Chromosome                                                                                         #
+#5.  Start Coordinate                                                                                   #
+#6.  Stop Coordinate                                                                                    #
+#7.  Strand                                                                                             #
+################################################(c) Ernst Thuer 2014#####################################
 
 # arguments for commandline input and help
 ####################################################

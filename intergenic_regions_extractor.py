@@ -3,17 +3,15 @@ from Bio import SeqIO
 import re as re
 from Bio.Blast.Applications import NcbiblastxCommandline
 
-
-# this script will extract inergenic regions from two multifasta files,
-# one containing orfs one containing orfs and intergenic regions
-# a cutoff or 1000bp upstream and downstream is chosen, and removed as well
-
-# the remaining fragments will be blasted against the orf database,
-# to see if they do not match
-
-
-# output is for teaching purpouse in CPAT
-
+#####################################################################################
+# this script will extract inergenic regions from two multifasta files,             #
+# one containing orfs one containing orfs and intergenic regions                    #
+# a cutoff or 1000bp upstream and downstream is recommended, and removed as well    #
+# the remaining fragments will be blasted against the orf database,                 #
+# to see if they do not match                                                       #
+# output is for teaching purpouse in CPAT                                           #
+#                                                                                   #
+###############(c) Ernst Thuer 2014 #################################################
 
 # arguments for commandline input and help
 ####################################################
