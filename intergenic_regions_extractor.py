@@ -55,7 +55,6 @@ parser.add_argument('-overhead',
 
 args = parser.parse_args()
 
-(args.overhead)
 
 #####################################################
 
