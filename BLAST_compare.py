@@ -25,8 +25,8 @@ parser = argparse.ArgumentParser(description='This script takes two files, a gff
 parser.add_argument('-xml',
                     dest='xml',
                     required = False,
-                    default = 'intermediate.xml'
-                    help='Input a name for an intermediate xml file containing blastresults ',
+                    default = 'intermediate.xml',
+                    help='Input a name for an intermediate xml file containing blastresults',
                     metavar = 'FILE',
                     #type=lambda x: is_valid_file(parser,x)
                     )
@@ -82,7 +82,8 @@ def getmatch(blast_records):
     for blast_record in blast_records:
         for alignment in blast_record.alignments:
             for hsp in alignment.hsps:
-                gene = re.compile('%s') %(args.regex)  # 'CPAR2_\d{6}' change the regex for other organisms
+                string_re = str(('%s' %(args.regex) ))
+                gene = re.compile('CAGL\d\w\d{5}')  #'CAGL\d\w\d{5}' 'CPAR2_\d{6}' change the regex for other organisms
                 try:
                     match = gene.search(alignment.title)
                     collectdict[match.group(0)] = match.group(0)

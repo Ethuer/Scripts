@@ -98,7 +98,7 @@ with open('%s' %(args.orfs) ,'r') as handle_orf, open('%s' % (args.intergen),'r'
     count = 0
     for key in collection:
         if len(collection[key]) > 100:
-            out.writerow(['> surrounding region of gene %s after 1000bp overhead' %(key),collection[key]])
+            out.writerow(['> %s intergenic region after 1000bp overhead' %(key),collection[key]])
             count += len(collection[key])
     print 'average length = %i' %(count/len(collection))
 
