@@ -3,8 +3,8 @@ from Bio.Blast import NCBIXML
 import csv
 from Bio import SeqIO
 import re as re
-#help(NcbiblastnCommandline)
-
+import sys,argparse
+import os.path
 
 #########################################################################################################################
 # This script takes a fasta file as input , performas blastn against a local database, and returns all the fasta files  #

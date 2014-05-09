@@ -1,7 +1,8 @@
 import csv
 from Bio import SeqIO
 import re as re
-
+import sys,argparse
+import os.path
 #########################################################################################################
 # this script takes a gff and a fasta file to create the fasta sequences of genes / annotated sequences #
 # an overhead ( upstream, downstream ) is also retained, the output is directed to a new fasta file     #

@@ -2,7 +2,8 @@ import csv
 from Bio import SeqIO
 import re as re
 from Bio.Blast.Applications import NcbiblastxCommandline
-
+import sys,argparse
+import os.path
 #####################################################################################
 # this script will extract inergenic regions from two multifasta files,             #
 # one containing orfs one containing orfs and intergenic regions                    #
@@ -60,7 +61,8 @@ def match_string(large,small,ident):
     """ REGEX via python re. looking for bp upstream downstream"""
     count_string = 0
     collectstring = {}
-    string = ('\w{1,%i}%s\w{1,%i}') % (args.overhead, small, args.overhead)
+    overhead = int(args.overhead)
+    string = ('\w{1,%i}%s\w{1,%i}') % (overhead, small, overhead)
     reg  = re.compile(string)
     large = str(large)
     reg_string = reg.sub('',large)
@@ -81,17 +83,18 @@ def compare(infile,compare):
                         collect_seq[row] = string
                     
                     counter +=1
-    print counter
+    print '%i transcripts found' %(counter)
     return collect_seq
 
 
-with open('%s','r')%(args.orfs) as handle_orf, open('%s','r') % (args.intergen) as handle_inter, open('%s','w') % (args.output) as out_raw :
+with open('%s' %(args.orfs) ,'r') as handle_orf, open('%s' % (args.intergen),'r')  as handle_inter, open('%s'% (args.output) ,'w') as out_raw :
 
     orf = SeqIO.to_dict(SeqIO.parse(handle_orf,'fasta'))
     inter = SeqIO.to_dict(SeqIO.parse(handle_inter,'fasta'))
     out = csv.writer(out_raw,delimiter='\n')
+    print ' Processing files ...'
     collection = compare(orf,inter)
-    print len(collection)
+    print '%i of which possess acceptable overhead' %(len(collection))
     count = 0
     for key in collection:
         if len(collection[key]) > 100:
