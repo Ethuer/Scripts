@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import csv
 from Bio import SeqIO
+import sys,argparse
+import os.path
 
 #################################################################################################################################
 #    This script takes an CPC output and the multi fasta file used for prediction to create a gtf file                          #

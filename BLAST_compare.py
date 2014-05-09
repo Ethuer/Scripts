@@ -121,7 +121,6 @@ with open('%s' %(args.fasta),'r') as in_raw, open('%s' %(args.xml), 'r') as inte
     blast_records = NCBIXML.parse(intermediate_raw)
 
     blast_match = getmatch(blast_records)
-##    print type(blast_match)
 
     result_list = kickout(infile,blast_match)
 
