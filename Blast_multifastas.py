@@ -88,8 +88,8 @@ def blastrun(infile):
 with open('%s' %(args.fasta),'r') as first_raw, open('%s' %(args.output), 'w') as out_raw:
     first = SeqIO.parse(first_raw,'fasta')
     out = csv.writer(out_raw,delimiter='\t')
-    print 'Processing ... '
-    print 'Commencing blastn ...'
+   # print 'Processing ... '
+   # print 'Commencing blastn ...'
 
     results = blastrun(first)
 
