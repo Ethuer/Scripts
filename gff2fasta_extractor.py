@@ -70,8 +70,8 @@ def seq_extract(row, seqment):
         start = int(row[6])
         stop = int(row[5])
 
-    start = start - overhead
-    stop = stop + overhead
+    start = start - int(overhead)
+    stop = stop + int(overhead)
     subset = seqment[start:stop]
 
     return subset
@@ -84,7 +84,7 @@ def extractor(inseq,ref):
             collectdict[row[0]] = seq_extract(row,seqment)
     return collectdict
 
-with open('%s' %(args.output),'w') as out_raw, open('%s','r')%(args.fasta) as ref_raw, open('%s'%(args.gff),'r') as gtf_raw:
+with open('%s' %(args.output),'w') as out_raw, open('%s'%(args.fasta),'r') as ref_raw, open('%s'%(args.gff),'r') as gtf_raw:
     ref = SeqIO.to_dict(SeqIO.parse(ref_raw,'fasta'))
     gtf = csv.reader(gtf_raw,delimiter='\t')
 

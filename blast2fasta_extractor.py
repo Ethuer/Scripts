@@ -17,7 +17,7 @@ import os.path
 ####################################################
 parser = argparse.ArgumentParser(description='This script takes two files, a blast outfmt 6 (gff like) and one fasta format. It returns a multiple fasta conaining the annotated sequences')
 parser.add_argument('-blast',
-                    dest='gff',
+                    dest='blast',
                     required = True,
                     help='Input a gff file containing the annotations (strand 5,6 should be positions)',
                     metavar = 'FILE',
@@ -44,8 +44,8 @@ parser.add_argument('-out',
 parser.add_argument('-overhead',
                     dest='overhead',
                     required = False,
-                    default='1000',
-                    help='overhead of upstream and downstream bp beyond open reading frame will be cut off. Default 1000',
+                    default='0',
+                    help='overhead of upstream and downstream bp beyond open reading frame will be cut off. Default 0',
                     metavar = 'integer',
                     #type=argparse.FileType('w')
                     )
@@ -62,28 +62,34 @@ def seq_extract(row, seqment):
     if int(row[8]) < int(row[9]):
         start = int(row[8])
         stop = int(row[9])
+        print start
     elif int(row[8]) > int(row[9]):
         start = int(row[9])
         stop = int(row[8])
 
-    start = start - overhead
-    stop = stop + overhead
-    subset = seqment[start:stop]
 
+    start = start - int(overhead)
+    stop = stop + int(overhead)
+    subset = seqment.seq[start:stop]
+
+##    print subset
+    
     return subset
 
 def extractor(inseq,ref):
     collectdict={}
+    #print 'test'
     for row in inseq:
         if row[8]:
             seqment = ref[row[1]]
-            collectdict[row[0]] = seq_extract(row,seqment)
+            identic = (row[0],row[1],row[2],row[3],row[8])
+            collectdict[identic] = seq_extract(row,seqment)
     return collectdict
 
-with open('%s' %(args.output),'w') as out_raw, open('%s','r')%(args.fasta) as ref_raw, open('%s'%(args.gff),'r') as gtf_raw:
+with open('%s' %(args.output),'w') as out_raw, open('%s'%(args.fasta),'r') as ref_raw, open('%s'%(args.blast),'r') as gtf_raw:
     ref = SeqIO.to_dict(SeqIO.parse(ref_raw,'fasta'))
     gtf = csv.reader(gtf_raw,delimiter='\t')
-
+    out = csv.writer(out_raw,delimiter='\n')
     # header size, will implement better solution when I have the time
 ##    next(gtf,None)
 ##    next(gtf,None)
@@ -93,10 +99,21 @@ with open('%s' %(args.output),'w') as out_raw, open('%s','r')%(args.fasta) as re
 ##    next(gtf,None)
 ##    next(gtf,None)
 ##    next(gtf,None)
-    
+##    print 'test'
     collection = extractor(gtf,ref)
+##    print len(collection)
+    cnt = 0
     for row,seq in collection.items():
-        seq.id = row
-        SeqIO.write(seq, out_raw, "fasta")
+        cnt+=1
+        head = '>CPAR2_405290.%i %s with %s percent identity and length %i'  %(cnt,row[1],row[2],len(seq))
+        
+        print len(seq)
+        out.writerow([head,seq])
+##        seq.id = row
+##        sequence = row
+##        sequence.id = row
+##        sequence.seq = seq
+        
+##        SeqIO.write(sequence, out_raw, "fasta")
     
     
