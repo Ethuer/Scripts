@@ -8,9 +8,9 @@ import os.path
 # This script takes a multifasta file CPC output , compares it with CPAT and writes the files below threshold to a new fasta file   #
 # CPAT recommends 0.3-0.4 cutoff,  0.3 should be best                                                                               #
 #####################################################################################################################################
-
-# arguments for commandline input and help
-####################################################
+#####################################################
+# arguments for commandline input and help          #
+#####################################################
 parser = argparse.ArgumentParser(description='This script takes a multifasta file CPC output , compares it with CPAT and writes the files below threshold to a new fasta file')
 parser.add_argument('-fasta',
                     dest='fasta',
