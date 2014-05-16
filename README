@@ -8,3 +8,6 @@ CPC2gtf.py 	creates a gtf file from cpc .tab and fasta file used as a reference 
 gff2fasta_extractor.py 		extracts fasta sequences + upstrem downstream regions from based on a gff file
 intergenic_regions_extractor.py extracts intergenic regions from difference between an orf and an orf + intergenic file (as on Candida genome database)
 BLAST_compare.py	compares extracted intergenic regions against a blast database ( preferably orf) and kicks out any overlap
+Blast_multifasta compares (BLASTs) a mutltifasta file against a reference Blastdatabase
+CPAT2fasta transforms CPAT .tab output to a multi fasta file
+Blast2fasta takes a blast output (xml format) and a reference file and returns the fasta sequence (with overheads)
