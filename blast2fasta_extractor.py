@@ -62,7 +62,7 @@ def seq_extract(row, seqment):
     if int(row[8]) < int(row[9]):
         start = int(row[8])
         stop = int(row[9])
-        print start
+        #print start
     elif int(row[8]) > int(row[9]):
         start = int(row[9])
         stop = int(row[8])
@@ -105,9 +105,9 @@ with open('%s' %(args.output),'w') as out_raw, open('%s'%(args.fasta),'r') as re
     cnt = 0
     for row,seq in collection.items():
         cnt+=1
-        head = '>CPAR2_405290.%i %s with %s percent identity and length %i'  %(cnt,row[1],row[2],len(seq))
+        head = '>%s on %s with %s percent identity and length %i'  %(row[0],row[1],row[2],len(seq))
         
-        print len(seq)
+        print '%s seqment with length %i written to file' %(row[0],len(seq))
         out.writerow([head,seq])
 ##        seq.id = row
 ##        sequence = row
