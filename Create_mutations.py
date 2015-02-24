@@ -29,7 +29,16 @@ parser.add_argument('-het',
                     required = False,
                     default='1',
                     help='Percent difference of original and heterozygous region',
-                    metavar = 'FILE',
+                    metavar = 'INT',
+                    #type=lambda x: is_valid_file(parser,x)
+                    )
+
+parser.add_argument('-ext',
+                    dest='ext',
+                    required = False,
+                    default='False',
+                    help='Extended output,  attaches the original sequence at the end, to benchmark accuracy in readmapping',
+                    metavar = 'BOOL',
                     #type=lambda x: is_valid_file(parser,x)
                     )
 
@@ -67,5 +76,9 @@ while (checksum - (100 - float(args.het)))*(checksum - (100 - float(args.het))) 
 print '%s percent identity' %((float(map(operator.eq, x, string).count(True))/1500)*100)
 
 with open("%s.fasta" %(args.out),'w') as outfile:
-    fastawriter = csv.writer(outfile, delimiter='\n')
-    fastawriter.writerow(['>%s'%(args.out),upstream,x,downstream])
+    if not args.ext
+        fastawriter = csv.writer(outfile, delimiter='\n')
+        fastawriter.writerow(['>%s'%(args.out),upstream,x,downstream])
+    else:
+        fastawriter = csv.writer(outfile, delimiter='\n')
+        fastawriter.writerow(['>%s'%(args.out),upstream,x,downstream,string])
