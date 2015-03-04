@@ -11,3 +11,8 @@ BLAST_compare.py	compares extracted intergenic regions against a blast database 
 Blast_multifasta compares (BLASTs) a mutltifasta file against a reference Blastdatabase
 CPAT2fasta transforms CPAT .tab output to a multi fasta file
 Blast2fasta takes a blast output (xml format) and a reference file and returns the fasta sequence (with overheads)
+Create_fastq_reads.py Creates fastq reads of fixed lenght 50bp and high quality for an input fasta sequence, amount of reads is an input parameter
+Create_mutations.py  creates mutations (SNPs) in a fasta sequence with a given frequency,  used for benchmarking sequence alignments. 	  
+Split_fasta_sequences.py  splits fasta sequence into subsequences of defined length
+
+
