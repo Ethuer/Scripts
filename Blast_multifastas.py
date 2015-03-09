@@ -51,12 +51,22 @@ parser.add_argument('-out',
                     #type=argparse.FileType('w')
                     )
 
-parser.add_argument('-cutoff',
+parser.add_argument('-eval',
                     dest='cutoff',
                     required = False,
-                    default='500',
-                    help='cutoff score to be considered relevant, defaults to 500',
+                    default='10e-5',
+                    help='cutoff evalue to be considered relevant, defaults to 10e-5',
                     metavar = 'integer',
+                    #type=argparse.FileType('w')
+                    )
+
+
+parser.add_argument('-out_value',
+                    dest='ov',
+                    required = False,
+                    default='e',
+                    help='defines second column of output, either: e = evalue, s = score, l=length, q = query(fasta), subj = name of hit in database, subf = subject(fasta),
+                    metavar = 'string',
                     #type=argparse.FileType('w')
                     )
 
@@ -76,11 +86,34 @@ def blastrun(infile):
         blastn_cline = NcbiblastnCommandline(db='%s' %(args.db), outfmt=5) #Blast command to commandline
         stdout, stderr = blastn_cline(stdin=query)  # execute, direct to stdout stderr
         blast_record = NCBIXML.read(StringIO(stdout))  # pipe to xmlparser,  use StringIO for conversion of str to xml
-        for desc in blast_record.descriptions:
-            if int(desc.score) > int(args.cutoff):
-                counter +=1
+        for alnmnt in blast_record.alignments:
+            for hsp in alnmnt.hsps:
+                if int(hsp.expect) < float(args.cutoff):
+                    counter +=1
 ##                print ' aligment %s has a score of %i  '  %(desc.title, desc.score)
-                collectdict[f.id] = desc.score
+                    collectdict[f.id] = hsp.sbjct
+##                    print f.id
+##                print ' aligment %s has a score of %i  '  %(desc.title, desc.score)
+
+                    if args.ov == 'e':
+                        collectdict[f.id] = hsp.sbjct
+                    if args.ov == 's':
+                        collectdict[f.id] = hsp.sbjct
+                    if args.ov == 'l':
+                        collectdict[f.id] = hsp.num_alignments
+                    if args.ov == 'q':
+                        collectdict[f.id] = hsp.query
+                    if args.ov == 'subj':
+                        collectdict[f.id] = alnmnt.title
+                    if args.ov == 'subf':
+                        collectdict[f.id] = hsp.sbjct
+                    else:
+                        print 'Output argument not valid, choose ov = e,s,l,q,subj,subf'
+
+
+
+
+                
     print ' %i blast hits encountered..' %(counter)  
     return collectdict
 
