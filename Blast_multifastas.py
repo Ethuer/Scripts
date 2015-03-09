@@ -80,7 +80,7 @@ def blastrun(infile):
             if int(desc.score) > int(args.cutoff):
                 counter +=1
 ##                print ' aligment %s has a score of %i  '  %(desc.title, desc.score)
-                collectdict[desc.title] = desc.score
+                collectdict[f.id] = desc.score
     print ' %i blast hits encountered..' %(counter)  
     return collectdict
 
