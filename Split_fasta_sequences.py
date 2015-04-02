@@ -46,7 +46,7 @@ with open('%s'%(args.input),'r') as in_raw, open('%s'%(args.out),'w') as out_raw
     count = 0
     count2 = 0
 
-    short_sequences = []
+##    short_sequences = []
     
     out_dict = {}
     for element,value in record_dict.items():
